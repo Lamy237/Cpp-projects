@@ -8,7 +8,7 @@ Role : Definition of the methods and functions used to add, subtract, compare, a
 
 Creation: January 1, 2022 at 4:31 (Indian Time)
 
-Last update: July 9, 2022
+Last update: July 15, 2022
 */
 
 #include <iostream>
@@ -34,23 +34,11 @@ Duration::Duration(int hours, int minutes, int seconds)
 }
 
 
-void Duration::show() const
-{
-    std::cout << m_hours << "h : " << m_minutes << "m : " << m_seconds << "s\n";
-}
-
-
 /* Logical Operators */
-
-bool Duration::isEqual(Duration const& b) const
-{
-    return (m_hours == b.m_hours && m_minutes == b.m_minutes && m_seconds == b.m_seconds);
-}
-
 
 bool operator==(Duration const& a, Duration const& b)
 {
-    return a.isEqual(b);
+    return (a.m_hours == b.m_hours && a.m_minutes == b.m_minutes && a.m_seconds == b.m_seconds);
 }
 
 
@@ -60,28 +48,22 @@ bool operator!=(Duration const& a, Duration const& b)
 }
 
 
-bool Duration::isSmaller(Duration const& b) const
+bool operator<(Duration const& a, Duration const& b)
 {
-    if(m_hours < b.m_hours)
+    if(a.m_hours < b.m_hours)
         return true;
-    else if(m_hours == b.m_hours && m_minutes < b.m_minutes)
+    else if(a.m_hours == b.m_hours && a.m_minutes < b.m_minutes)
         return true;
-    else if(m_hours == b.m_hours && m_minutes == b.m_minutes && m_seconds < b.m_seconds)
+    else if(a.m_hours == b.m_hours && a.m_minutes == b.m_minutes && a.m_seconds < b.m_seconds)
         return true;
     else
         return false;
 }
 
 
-bool operator<(Duration const& a, Duration const& b)
-{
-    return a.isSmaller(b);
-}
-
-
 bool operator>(Duration const& a, Duration const& b)
 {
-    return (!a.isEqual(b) && !a.isSmaller(b));
+    return !(a == b || a < b);
 }
 
 
@@ -226,7 +208,4 @@ std::ostream& operator<<(std::ostream &stream, Duration const& duration)
     duration.show(stream);
     return stream;
 }
-
-
-
 
