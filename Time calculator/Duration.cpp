@@ -34,7 +34,7 @@ Duration::Duration(int hours, int minutes, int seconds)
 }
 
 
-/* Logical Operators */
+/* Relational Operators */
 
 bool operator==(Duration const& a, Duration const& b)
 {
